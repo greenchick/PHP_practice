@@ -1,5 +1,5 @@
 <?php
-requier_once('config.php');
+require_once('config.php');
 
 function connectPdo() {
   try{
@@ -10,3 +10,10 @@ function connectPdo() {
   }
 }
 
+function insertDb($data) {
+  $dbh = connectPdo();
+  $sql = 'INSERT INTO todos (todo) VALUES (:todo)';
+  $stmt = $dbh->prepare($sql);
+  $stmt->bindParam('todo', $data, PDO::PARAM_STR);
+  $stmt->execute();
+}
